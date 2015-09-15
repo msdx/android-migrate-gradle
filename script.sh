@@ -19,8 +19,8 @@ for dname in `find -name src`;do
   echo "Creating java src directory" $dname/main;  
   mkdir $dname/main/java;
   # Copy old stuff to new paths
-  echo "Copying Manifest from " $dname/../ to $dname/main;
-  cp $dname/../AndroidManifest.xml $dname/main/;
+  echo "Moving Manifest from " $dname/../ to $dname/main;
+  mv $dname/../AndroidManifest.xml $dname/main/;
   echo "Moving code to new 'main' folder";
   for srcs in `ls $dname`; do
     [[ $srcs != "main" ]] && mv $dname/$srcs $dname/main/java \
@@ -36,9 +36,6 @@ for dname in `find -name src`;do
   for file in `ls $dname/../`; do 
     [[ -f $dname/../$file ]] && rm $dname/../$file;
   done
-  [[ -f build.gradle.template ]] && \
-  echo "Copying gradle build file to modules" && \
-  cp build.gradle.template $dname/../build.gradle
 
   # Create the default build.gradle file
   echo "Write gradle build file to modules";
